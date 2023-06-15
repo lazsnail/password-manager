@@ -37,18 +37,18 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col">
-      <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} className="text-black"/>
+    <div className="flex items-center">
+      <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} className="text-black w-40 mr-2"/>
       <input
         type="password"
         name="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
-        className="text-black"
+        className="text-black w-40 mr-2"
       />
-      <button onClick={handleSignUp}>Sign up</button>
-      <button onClick={handleSignIn}>Sign in</button>
-      <button onClick={handleSignOut}>Sign out</button>
+      <button onClick={handleSignUp} className="mr-2">Sign up</button>
+      <button onClick={handleSignIn} className="mr-2">Sign in</button>
+      <button onClick={handleSignOut} className="mr-2">Sign out</button>
     </div>
   )
 }
