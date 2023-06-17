@@ -4,14 +4,7 @@ import { Dispatch, SetStateAction } from "react";
 
 type PasswordDisplayProps = {
     password: Password;
-    setCurrentPassword: Dispatch<SetStateAction<{
-        created_at: string;
-        id: string;
-        password: string;
-        user_id: string;
-        username: string;
-        website: string;
-    }>>;
+    setCurrentPassword: Dispatch<SetStateAction<Password>>;
     setEdit: Dispatch<SetStateAction<boolean>>;
 }
 
