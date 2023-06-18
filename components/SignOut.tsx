@@ -15,9 +15,5 @@ export default function SignOut() {
         router.refresh()
     }
 
-    return (
-        <div className="flex items-center">
-          <button onClick={handleSignOut} className="mr-2">Sign out</button>
-        </div>
-      )
+    return (<button onClick={handleSignOut} className="flex items-center bg-white text-black rounded mr-2 mt-2 p-4">Sign out</button>)
 }

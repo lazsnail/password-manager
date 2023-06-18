@@ -16,6 +16,7 @@ export default async function NewPassword() {
 
     return (
         <form action={addPassword} className="mb-2">
+            <h1>Add New Password</h1>
             <input name="website" className="text-black mr-2"/>
             <input name="username" className="text-black mr-2"/>
             <input name="password" className="text-black mr-2"/>

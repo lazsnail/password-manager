@@ -12,8 +12,8 @@ export default async function Unauthenticated() {
     }
 
     return (
-        <div>
-            Please sign in
+        <div className="w-screen h-screen flex justify-center items-center flex-col">
+            <h1 className="text-4xl mb-10">WELCOME TO <i>LOCKBOX</i></h1>
             <Login />
         </div>
     )

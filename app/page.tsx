@@ -19,8 +19,10 @@ export default async function Home() {
 
   return (
     <>
-        <h1>Hello {session.user.email}</h1>
-        <SignOut />
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl">Hello {session.user.email}</h1>
+          <SignOut />
+        </div>
         <NewPassword />
         <PasswordListDisplay passwords={passwords ?? []}/>
     </>
