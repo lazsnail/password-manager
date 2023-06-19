@@ -11,6 +11,15 @@ type PasswordEditProps = {
 export default function PasswordEdit({ password, setEdit } : PasswordEditProps) {
     const router = useRouter();
 
+    const deletePassword = async () => {
+        await fetch('http://localhost:3000/passwords', {
+            method: 'put',
+            body: JSON.stringify({ type: "delete", id: password.id, website: "", username: "", password: "" })
+        });
+
+        router.refresh();
+    }
+
     const updatePassword = async (formData: FormData) => {
         const newWebsite = String(formData.get("website"));
         const newUsername = String(formData.get("username"));
@@ -26,17 +35,27 @@ export default function PasswordEdit({ password, setEdit } : PasswordEditProps) 
     }
 
     return (
-        <div className="fixed w-screen h-screen top-0 left-0 bg-slate-500/[.4] flex justify-center items-center z-0">
-            <form action={updatePassword} className="bg-white w-1/3 h-2/3 text-black text-center rounded z-1 flex flex-col">
-                <b>Edit Password</b>
-                <h2>Website</h2>
-                <input name="website" type="text" defaultValue={password.website} ></input>
-                <h2>Username</h2>
-                <input name="username" type="text" defaultValue={password.username}></input>
-                <h2>Password</h2>
-                <input name="password" type="text" defaultValue={password.password}></input>
-                <button type="submit" className="mb-10">Submit</button>
-                <button onClick={() => setEdit(false)}>Close</button>
+        <div className="fixed w-screen h-screen top-0 left-0 bg-slate-500/[.4]">
+            <div onClick={() => setEdit(false)} className="fixed left-0 w-2/3 h-screen"></div>
+            <form action={updatePassword} className="fixed right-0 bg-white w-1/3 h-screen text-black text-center rounded flex flex-col">
+                <b className="text-3xl pt-10 pb-10 mb-10 bg-gray-100">Edit Password</b>
+                <div className="flex items-center mb-4">
+                    <b className="w-28 text-right pr-4">Website</b>
+                    <input name="website" type="text" defaultValue={password.website} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
+                </div>
+                <div className="flex items-center mb-4">
+                    <b className="w-28 text-right pr-4">Username</b>
+                    <input name="username" type="text" defaultValue={password.username} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
+                </div>
+                <div className="flex items-center mb-10">
+                    <b className="w-28 text-right pr-4">Password</b>
+                    <input name="password" type="text" defaultValue={password.password} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
+                </div>
+                <button type="submit" className="mb-10 bg-gray-200 p-3 rounded w-20 mr-auto ml-auto">Submit</button>
+                <div className="flex justify-between pl-5 pr-5 pb-3">
+                    <button onClick={deletePassword} className="bg-gray-200 p-3 rounded">Delete</button>
+                    <button onClick={() => setEdit(false)} className="bg-gray-200 p-3 rounded">Close</button>
+                </div>
             </form>
         </div>
     )

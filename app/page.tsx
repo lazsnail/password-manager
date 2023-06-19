@@ -1,11 +1,8 @@
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
-import NewPassword from "../components/NewPassword";
-import Password from "../components/PasswordDisplay";
-import PasswordEdit from "../components/PasswordEdit";
+
 import PasswordListDisplay from "@/components/PasswordListDisplay";
-import SignOut from "@/components/SignOut";
 import Header from "@/components/Header";
 
 export default async function Home() {

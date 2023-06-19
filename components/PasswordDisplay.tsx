@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
+import { AiOutlineDelete } from "react-icons/ai"
 
 type PasswordDisplayProps = {
     password: Password;
@@ -11,15 +12,6 @@ type PasswordDisplayProps = {
 
 export default function PasswordDisplay({password, setCurrentPassword, setEdit} : PasswordDisplayProps) {
     const router = useRouter();
-    
-    const deletePassword = async () => {
-        await fetch('http://localhost:3000/passwords', {
-            method: 'put',
-            body: JSON.stringify({ type: "delete", id: password.id, website: "", username: "", password: "" })
-        });
-
-        router.refresh();
-    }
 
     const edit = () => {
         setCurrentPassword(password);
@@ -27,12 +19,11 @@ export default function PasswordDisplay({password, setCurrentPassword, setEdit} 
     }
 
     return (
-        <div className="w-full bg-white text-black rounded mb-4">
-            <p>Website: <b>{password.website}</b></p>
-            <p>Username: {password.username}</p>
-            <p>Password: {password.password}</p>
-            <button onClick={edit}>Edit</button>
-            <button onClick={deletePassword}>Delete</button>
+        <div onClick={edit} className="w-full bg-white text-black rounded mb-4 pt-2 pb-2 pl-3 pr-3 flex justify-between items-center hover:bg-slate-100">
+            <div className="text-left">
+                <b className="text-lg">{password.website}</b>
+                <p>{password.username}</p>
+            </div>
         </div>
     )
 }
