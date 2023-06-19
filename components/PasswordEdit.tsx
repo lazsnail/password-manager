@@ -18,9 +18,9 @@ export default function PasswordEdit({ password, setEdit } : PasswordEditProps) 
 
         await fetch('http://localhost:3000/passwords', {
             method: 'put',
-            body: JSON.stringify({ id: password.id, website: newWebsite, username: newUsername, password: newPassword })
+            body: JSON.stringify({ type: "update", id: password.id, website: newWebsite, username: newUsername, password: newPassword })
         });
-        
+
         setEdit(false);
         router.refresh();
     }

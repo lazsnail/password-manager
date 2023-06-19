@@ -17,7 +17,7 @@ export default async function NewPassword({ setPopup } : NewPasswordProps) {
 
         await fetch('http://localhost:3000/passwords', {
             method: 'put',
-            body: JSON.stringify({ id: "new", website: website, username: username, password: password})
+            body: JSON.stringify({ type: "insert", id: "new", website: website, username: username, password: password})
         })
 
         setPopup(false);

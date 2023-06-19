@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 
 type PasswordDisplayProps = {
@@ -9,7 +10,18 @@ type PasswordDisplayProps = {
 }
 
 export default function PasswordDisplay({password, setCurrentPassword, setEdit} : PasswordDisplayProps) {
-    function edit() {
+    const router = useRouter();
+    
+    const deletePassword = async () => {
+        await fetch('http://localhost:3000/passwords', {
+            method: 'put',
+            body: JSON.stringify({ type: "delete", id: password.id, website: "", username: "", password: "" })
+        });
+
+        router.refresh();
+    }
+
+    const edit = () => {
         setCurrentPassword(password);
         setEdit(true);
     }
@@ -20,6 +32,7 @@ export default function PasswordDisplay({password, setCurrentPassword, setEdit} 
             <p>Username: {password.username}</p>
             <p>Password: {password.password}</p>
             <button onClick={edit}>Edit</button>
+            <button onClick={deletePassword}>Delete</button>
         </div>
     )
 }
