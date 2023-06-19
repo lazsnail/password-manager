@@ -1,23 +1,25 @@
-"use client";
+'use client'
 
-import PasswordDisplay from "@/app/password";
-import PasswordEdit from "@/app/password-edit";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-type PasswordListDisplayProps = {
-    passwords: Password[];
+type PasswordDisplayProps = {
+    password: Password;
+    setCurrentPassword: Dispatch<SetStateAction<Password>>;
+    setEdit: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function PasswordListDisplay({passwords} : PasswordListDisplayProps) {
-  var [currentPassword, setCurrentPassword] = useState<Password>(passwords[0]);
-  var [edit, setEdit] = useState(false);
+export default function PasswordDisplay({password, setCurrentPassword, setEdit} : PasswordDisplayProps) {
+    function edit() {
+        setCurrentPassword(password);
+        setEdit(true);
+    }
 
-  return (
-    <div>
-        {edit ? <PasswordEdit password={currentPassword} setEdit={setEdit}/> : null}
-        {passwords?.map((password) => (
-            <PasswordDisplay key={password.id} password={password} setCurrentPassword={setCurrentPassword} setEdit={setEdit} />
-        ))}
-    </div>
-  );
+    return (
+        <div className="w-full bg-white text-black rounded mb-4">
+            <p>Website: <b>{password.website}</b></p>
+            <p>Username: {password.username}</p>
+            <p>Password: {password.password}</p>
+            <button onClick={edit}>Edit</button>
+        </div>
+    )
 }

@@ -1,17 +1,16 @@
-import { Dispatch, SetStateAction } from "react"
+"use client"
 
-import NewButton from "./NewButton"
+import NewPassword from "./NewPassword";
+import { useState } from "react";
 
-type HeaderProps = {
-    set_title: Dispatch<SetStateAction<string>>;
-    set_email: Dispatch<SetStateAction<string>>
-    set_popup : Dispatch<SetStateAction<boolean>>;
-}
 
-export default function Header({set_title, set_email, set_popup} : HeaderProps) {
-    return(
+export default function Header() {
+    var [popup, setPopup] = useState(false);
+
+    return (
         <header className="mt-8">
-            <NewButton set_title={set_title} set_email={set_email} set_popup={set_popup}/>
+            {popup ? <NewPassword setPopup={setPopup}/> : null}
+            <button onClick={() => setPopup(true)}>New Password</button>
         </header>
     )
 }
