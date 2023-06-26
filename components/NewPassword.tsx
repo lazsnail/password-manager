@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai"
 
 type NewPasswordProps = {
     setPopup : Dispatch<SetStateAction<boolean>>;

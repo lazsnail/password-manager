@@ -41,41 +41,41 @@ export default function Login() {
   }
 
   return (
-    <>
-      {displayType === "signIn" ? 
-      <div className="w-fit flex flex-col justify-center items-center text-center p-10 bg-white text-black rounded">
-        <h1 className="text-2xl mb-6 font-bold">Log In</h1>
-        <h2>Email</h2>
-        <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} className="text-black w-52 text-center ml-auto mr-auto mb-5 border-black border-2"/>
-        <h2>Password</h2>
-        <input
-          type="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          className="text-black w-52 text-center ml-auto mr-auto mb-5 border-black border-2"
-        />
-        {loginError ? <h3 className="text-red-600 mb-5 loginErrorMessage">Incorrect email or password</h3> : null }
+      <div className="mt-24 botom-0 z-10">
+        {displayType === "signIn" ? 
+        <div className="w-fit flex flex-col justify-center items-center text-center p-10 bg-white text-black rounded">
+          <h1 className="text-2xl mb-6 font-bold">Log In</h1>
+          <h2>Email</h2>
+          <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} className="bg-black text-white w-52 text-center ml-auto mr-auto mb-5 p-1"/>
+          <h2>Password</h2>
+          <input
+            type="password"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            className="bg-black text-white w-52 text-center ml-auto mr-auto mb-7 p-1"
+          />
+          {loginError ? <h3 className="text-red-600 mb-5 loginErrorMessage">Incorrect email or password</h3> : null }
 
-        <button onClick={handleSignIn} className="bg-black text-white p-3 rounded ml-auto mr-auto mb-5 w-20">Sign In</button>
-        <button onClick={() => setDisplayType("signUp")}>Don't have an account? Sign Up</button>
-      </div> : displayType === "signUp" ?
-      <div className="w-fit flex flex-col justify-center items-center text-center p-10 bg-white text-black rounded">
-        <h1 className="text-2xl mb-6 font-bold">Create New Account</h1>
-        <h2>Email</h2>
-        <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} className="text-black w-52 text-center ml-auto mr-auto mb-5 border-black border-2"/>
-        <h2>Password</h2>
-        <input
-          type="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          className="text-black w-52 text-center ml-auto mr-auto mb-5 border-black border-2"
-        />
+          <button onClick={handleSignIn} className="bg-black text-white p-3 rounded ml-auto mr-auto mb-5 w-24">Sign In</button>
+          <button onClick={() => setDisplayType("signUp")} className="w-[260px]">Don't have an account? Sign Up</button>
+        </div> : displayType === "signUp" ?
+        <div className="w-fit flex flex-col justify-center items-center text-center p-10 bg-white text-black rounded">
+          <h1 className="text-2xl mb-6 font-bold">Create New Account</h1>
+          <h2>Email</h2>
+          <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} className="bg-black text-white w-52 text-center ml-auto mr-auto mb-5 p-1"/>
+          <h2>Password</h2>
+          <input
+            type="password"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            className="bg-black text-white w-52 text-center ml-auto mr-auto mb-7 p-1"
+          />
 
-        <button onClick={handleSignUp} className="bg-black text-white p-3 rounded ml-auto mr-auto mb-5 w-22">Sign Up</button>
-        <button onClick={() => setDisplayType("signIn")}>Already have an account? Sign In</button>
-      </div> : null}
-    </>
+          <button onClick={handleSignUp} className="bg-black text-white p-3 rounded ml-auto mr-auto mb-5 w-24">Sign Up</button>
+          <button onClick={() => setDisplayType("signIn")} className="w-[260px]">Already have an account? Sign In</button>
+        </div> : null}
+      </div>
   )
 }

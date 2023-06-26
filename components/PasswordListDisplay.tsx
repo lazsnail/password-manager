@@ -14,7 +14,6 @@ export default function PasswordListDisplay({
   var [currentPassword, setCurrentPassword] = useState<Password>(passwords[0]);
   var [edit, setEdit] = useState(false);
   const length = passwords.length;
-  console.log(length);
 
   return (
     <div>
