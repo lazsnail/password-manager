@@ -1,14 +1,21 @@
 "use client"
 
+import { pbkdf2Sync } from "crypto";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai"
+import CryptoJS from "crypto-js";
+
 
 type NewPasswordProps = {
+    vault: string;
     setPopup : Dispatch<SetStateAction<boolean>>;
 }
 
-export default async function NewPassword({ setPopup } : NewPasswordProps) {
+export default async function NewPassword({ vault, setPopup } : NewPasswordProps) {
+    var passwords = JSON.parse(vault);
+    console.log(passwords);
+
     const router = useRouter();
 
     const addPassword = async (formData: FormData) => {
@@ -16,13 +23,33 @@ export default async function NewPassword({ setPopup } : NewPasswordProps) {
         const username = String(formData.get("username"));
         const password = String(formData.get("password"));
 
+        passwords[website] = {username: username, password: password}
+
+        const key = localStorage.getItem("vaultKey") ?? "";
+        if (key == "") {
+            console.log("need vault key");
+        }
+
+        console.log(passwords);
+
+
+        // Encrypt vault
+        const encrypted = CryptoJS.AES.encrypt(JSON.stringify(passwords), key).toString();
+        console.log(encrypted);
+
+        // Decrypt vault
+        const decrypted = CryptoJS.AES.decrypt(encrypted, key).toString(CryptoJS.enc.Utf8);;
+        console.log(JSON.parse(decrypted));
+
+        /*
         await fetch('http://localhost:3000/passwords', {
             method: 'put',
-            body: JSON.stringify({ type: "insert", id: "new", website: website, username: username, password: password})
+            body: JSON.stringify({ type: "update", id: "new", website: website, username: username, password: password})
         })
 
         setPopup(false);
         router.refresh();
+        */
     }
 
     return (

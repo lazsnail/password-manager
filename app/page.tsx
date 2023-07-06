@@ -13,13 +13,16 @@ export default async function Home() {
       redirect('/unauthenticated')
   }
 
-  const { data: passwords, error } = await supabase.from("passwords").select();
+  const { data, error } = await supabase.from("passwords").select().single();
+  const vault = data ? data["vault"] : "empty";
+
+  console.log(vault);
 
   return (
     <>
         <h1 className="text-2xl">Hello {session.user.email}</h1>
-        <Header />
-        <PasswordListDisplay passwords={passwords ?? []}/>
+        <Header vault={vault} />
+        <PasswordListDisplay data={vault}/>
     </>
   )
 }

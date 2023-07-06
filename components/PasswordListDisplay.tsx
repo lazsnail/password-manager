@@ -5,12 +5,15 @@ import PasswordEdit from "@/components/PasswordEdit";
 import { useState } from "react";
 
 type PasswordListDisplayProps = {
-  passwords: Password[];
+  data: string;
 };
 
 export default function PasswordListDisplay({
-  passwords,
+  data,
 }: PasswordListDisplayProps) {
+
+  return (<>{data}</>)
+  /*
   var [currentPassword, setCurrentPassword] = useState<Password>(passwords[0]);
   var [edit, setEdit] = useState(false);
   const length = passwords.length;
@@ -36,4 +39,5 @@ export default function PasswordListDisplay({
       ) : null}
     </div>
   );
+  */
 }

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import type { Database } from '../types/supabase'
+import { pbkdf2Sync } from 'crypto'
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -16,9 +17,11 @@ export default function Login() {
   const supabase = createClientComponentClient<Database>();
 
   const handleSignUp = async () => {
+    var derived_password = pbkdf2Sync(password, email, 5000, 32, 'sha512').toString();
+
     const { error } = await supabase.auth.signUp({
       email,
-      password,
+      password: derived_password,
       options: {
         emailRedirectTo: `${location.origin}/auth/callback`,
       },
@@ -27,16 +30,22 @@ export default function Login() {
       console.log(error);
     }
     router.refresh()
+  
   }
 
   const handleSignIn = async () => {
+    var derived_password = pbkdf2Sync(password, email, 5000, 32, 'sha512').toString();
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
-      password,
+      password: derived_password,
     })
     if (error !== null) {
       setLoginError(true);
     }
+    
+    localStorage.setItem("vaultKey", derived_password);
+
     router.refresh()
   }
 
