@@ -4,30 +4,60 @@ import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 
 type PasswordEditProps = {
-    password: Password;
+    website: string;
+    username: string;
+    password: string;
+    vault: string;
+    id: string;
     setEdit: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function PasswordEdit({ password, setEdit } : PasswordEditProps) {
+export default function PasswordEdit({ website, username, password, vault, id, setEdit } : PasswordEditProps) {
+    const key = localStorage.getItem('vaultKey') ?? "";
+    if (key == "") {
+        console.log("need vault key");
+    }
+
+    var decrypted = "";
+    if (vault !== "{}") {
+        decrypted = CryptoJS.AES.decrypt(vault, key).toString(CryptoJS.enc.Utf8);;
+        console.log(JSON.parse(decrypted));
+    }
+
+    var passwords = JSON.parse(decrypted);
+
     const router = useRouter();
 
     const deletePassword = async () => {
+        /*
         await fetch('http://localhost:3000/passwords', {
             method: 'put',
             body: JSON.stringify({ type: "delete", id: password.id, website: "", username: "", password: "" })
         });
 
         router.refresh();
+        */
     }
+    
 
     const updatePassword = async (formData: FormData) => {
         const newWebsite = String(formData.get("website"));
         const newUsername = String(formData.get("username"));
         const newPassword = String(formData.get("password"));
 
+        if (website !== newWebsite) {
+            delete passwords[password];
+        }
+
+        passwords[newWebsite] = {username: newUsername, password: newPassword}
+
+        // Encrypt vault
+        const encrypted = CryptoJS.AES.encrypt(JSON.stringify(passwords), key).toString();
+        console.log(encrypted);
+
         await fetch('http://localhost:3000/passwords', {
             method: 'put',
-            body: JSON.stringify({ type: "update", id: password.id, website: newWebsite, username: newUsername, password: newPassword })
+            body: JSON.stringify({ type: "update", vault: encrypted, id: id })
         });
 
         setEdit(false);
@@ -41,15 +71,15 @@ export default function PasswordEdit({ password, setEdit } : PasswordEditProps) 
                 <b className="text-3xl pt-10 pb-10 mb-10 bg-gray-100">Edit Password</b>
                 <div className="flex items-center mb-4">
                     <b className="w-28 text-right pr-4">Website</b>
-                    <input name="website" type="text" defaultValue={password.website} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
+                    <input name="website" type="text" defaultValue={website} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
                 </div>
                 <div className="flex items-center mb-4">
                     <b className="w-28 text-right pr-4">Username</b>
-                    <input name="username" type="text" defaultValue={password.username} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
+                    <input name="username" type="text" defaultValue={username} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
                 </div>
                 <div className="flex items-center mb-10">
                     <b className="w-28 text-right pr-4">Password</b>
-                    <input name="password" type="text" defaultValue={password.password} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
+                    <input name="password" type="text" defaultValue={password} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
                 </div>
                 <button type="submit" className="mb-10 bg-gray-200 p-3 rounded w-20 mr-auto ml-auto">Submit</button>
                 <div className="flex justify-between pl-5 pr-5 pb-3">

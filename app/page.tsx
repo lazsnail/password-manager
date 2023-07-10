@@ -15,13 +15,12 @@ export default async function Home() {
 
   const { data, error } = await supabase.from("passwords").select().single();
   const vault = data ? data["vault"] : "empty";
-
-  console.log(vault);
+  const id = data ? data["user_id"] : "no_id";
 
   return (
     <>
         <h1 className="text-2xl">Hello {session.user.email}</h1>
-        <Header vault={vault} />
+        <Header vault={vault} id={id}/>
         <PasswordListDisplay data={vault}/>
     </>
   )

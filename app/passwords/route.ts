@@ -4,26 +4,12 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function PUT(request: Request) {
-    const {type, id, website, username, password} = await request.json();
+    const {type, vault, id} = await request.json();
 
     const supabase = createRouteHandlerClient<Database>({ cookies });
 
-    if (type === "insert") {
-        const { data, error } = await supabase.from("passwords").insert({"website": website, "username": username, "password": password});
-        if (error) {
-            console.log(error);
-        }
-        return NextResponse.json(data);
-    }
-    else if (type === "update") {
-        const { data, error } = await supabase.from("passwords").update({"website": website, "username": username, "password": password}).match({ id });
-        if (error) {
-            console.log(error);
-        }
-        return NextResponse.json(data);
-    }
-    else if (type === "delete") {
-        const { data, error } = await supabase.from("passwords").delete().match({ id });
+    if (type === "update") {
+        const { data, error } = await supabase.from("passwords").update({vault: vault}).match({ user_id: id });
         if (error) {
             console.log(error);
         }

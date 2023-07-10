@@ -9,11 +9,22 @@ import CryptoJS from "crypto-js";
 
 type NewPasswordProps = {
     vault: string;
+    id: string;
     setPopup : Dispatch<SetStateAction<boolean>>;
 }
 
-export default async function NewPassword({ vault, setPopup } : NewPasswordProps) {
-    var passwords = JSON.parse(vault);
+export default async function NewPassword({ vault, id, setPopup } : NewPasswordProps) {
+    const key = localStorage.getItem('vaultKey') ?? "";
+    if (key == "") {
+        console.log("need vault key");
+    }
+
+    var decrypted = "";
+    if (vault !== "{}") {
+        decrypted = CryptoJS.AES.decrypt(vault, key).toString(CryptoJS.enc.Utf8);;
+    }
+
+    var passwords = JSON.parse(decrypted);
     console.log(passwords);
 
     const router = useRouter();
@@ -25,10 +36,6 @@ export default async function NewPassword({ vault, setPopup } : NewPasswordProps
 
         passwords[website] = {username: username, password: password}
 
-        const key = localStorage.getItem("vaultKey") ?? "";
-        if (key == "") {
-            console.log("need vault key");
-        }
 
         console.log(passwords);
 
@@ -37,19 +44,13 @@ export default async function NewPassword({ vault, setPopup } : NewPasswordProps
         const encrypted = CryptoJS.AES.encrypt(JSON.stringify(passwords), key).toString();
         console.log(encrypted);
 
-        // Decrypt vault
-        const decrypted = CryptoJS.AES.decrypt(encrypted, key).toString(CryptoJS.enc.Utf8);;
-        console.log(JSON.parse(decrypted));
-
-        /*
         await fetch('http://localhost:3000/passwords', {
             method: 'put',
-            body: JSON.stringify({ type: "update", id: "new", website: website, username: username, password: password})
+            body: JSON.stringify({ type: "update", vault: encrypted, id: id})
         })
 
         setPopup(false);
         router.refresh();
-        */
     }
 
     return (
