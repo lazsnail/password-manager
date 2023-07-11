@@ -2,17 +2,25 @@
 
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
+import CryptoJS from "crypto-js";
+
 
 type PasswordEditProps = {
-    website: string;
-    username: string;
-    password: string;
+    info: {
+        website: string;
+        username: string;
+        password: string;
+    }
     vault: string;
     id: string;
     setEdit: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function PasswordEdit({ website, username, password, vault, id, setEdit } : PasswordEditProps) {
+export default function PasswordEdit({ info, vault, id, setEdit } : PasswordEditProps) {
+    const website = info["website"];
+    const username = info["username"];
+    const password = info["password"];
+
     const key = localStorage.getItem('vaultKey') ?? "";
     if (key == "") {
         console.log("need vault key");
@@ -21,7 +29,6 @@ export default function PasswordEdit({ website, username, password, vault, id, s
     var decrypted = "";
     if (vault !== "{}") {
         decrypted = CryptoJS.AES.decrypt(vault, key).toString(CryptoJS.enc.Utf8);;
-        console.log(JSON.parse(decrypted));
     }
 
     var passwords = JSON.parse(decrypted);
@@ -29,14 +36,20 @@ export default function PasswordEdit({ website, username, password, vault, id, s
     const router = useRouter();
 
     const deletePassword = async () => {
-        /*
+        delete passwords[website];
+
+        console.log(passwords);
+
+        // Encrypt vault
+        const encrypted = CryptoJS.AES.encrypt(JSON.stringify(passwords), key).toString();
+
         await fetch('http://localhost:3000/passwords', {
             method: 'put',
-            body: JSON.stringify({ type: "delete", id: password.id, website: "", username: "", password: "" })
+            body: JSON.stringify({ type: "update", vault: encrypted, id: id })
         });
 
+        setEdit(false);
         router.refresh();
-        */
     }
     
 
@@ -46,14 +59,14 @@ export default function PasswordEdit({ website, username, password, vault, id, s
         const newPassword = String(formData.get("password"));
 
         if (website !== newWebsite) {
-            delete passwords[password];
+            console.log("here");
+            delete passwords[website];
         }
 
         passwords[newWebsite] = {username: newUsername, password: newPassword}
 
         // Encrypt vault
         const encrypted = CryptoJS.AES.encrypt(JSON.stringify(passwords), key).toString();
-        console.log(encrypted);
 
         await fetch('http://localhost:3000/passwords', {
             method: 'put',

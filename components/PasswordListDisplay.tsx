@@ -9,11 +9,18 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 type PasswordListDisplayProps = {
   data: string;
+  id: string;
 };
 
 export default function PasswordListDisplay({
-  data,
+  data, id
 }: PasswordListDisplayProps) {
+  var [edit, setEdit] = useState(false);
+  var [info, setInfo] = useState({
+    website: "",
+    username: "",
+    password: "",
+  });
 
   const vaultKey = localStorage.getItem('vaultKey') ?? "";
 
@@ -24,19 +31,33 @@ export default function PasswordListDisplay({
   else {
     const decrypted = CryptoJS.AES.decrypt(data, vaultKey).toString(CryptoJS.enc.Utf8);
 
-    const map = new Map(Object.entries(JSON.parse(decrypted)));
+    console.log(decrypted);
+
+    const map = new Map<string, JSON>(Object.entries(JSON.parse(decrypted)));
 
     var elements:any[] = [];
-    map.forEach((values, keys) => {
-      elements.push(<div className="bg-white text-black mb-5 max-w-md text-center" key={keys}>{keys}</div>)
+    map.forEach((value, key) => {
+      const values = new Map(Object.entries(value));
+      const username = values.get("username");
+      const password = values.get("password");
+      elements.push(
+        <PasswordDisplay key={key} website={key} username={username} password={password} setEdit={setEdit} setInfo={setInfo}/>
+      )
     })
 
-    return elements;
+    return (
+      <div>
+        {edit ? (
+          <PasswordEdit info={info} vault={data} id={id} setEdit={setEdit} />
+        ) : null}
+        {elements}
+      </div>      
+    );
 
 
     /*
     var [currentPassword, setCurrentPassword] = useState<Password>(passwords[0]);
-    var [edit, setEdit] = useState(false);
+
     const length = passwords.length;
     console.log(length);
 

@@ -21,7 +21,7 @@ export default async function Home() {
     <>
         <h1 className="text-2xl">Hello {session.user.email}</h1>
         <Header vault={vault} id={id}/>
-        <PasswordListDisplay data={vault}/>
+        <PasswordListDisplay data={vault} id={id}/>
     </>
   )
 }
