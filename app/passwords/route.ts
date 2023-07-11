@@ -4,8 +4,8 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function PUT(request: Request) {
-    const {type, vault, id} = await request.json();
-    
+    const { type, vault, id } = await request.json();
+
     const supabase = createRouteHandlerClient<Database>({ cookies });
 
     if (type === "update") {

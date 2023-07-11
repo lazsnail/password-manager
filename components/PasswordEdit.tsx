@@ -92,7 +92,8 @@ export default function PasswordEdit({ info, vault, id, setEdit } : PasswordEdit
                 </div>
                 <div className="flex items-center mb-10">
                     <b className="w-28 text-right pr-4">Password</b>
-                    <input name="password" type="text" defaultValue={password} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
+                    <input name="password" type="password" defaultValue={password} className="text-black mr-2 pl-2 rounded border-black border-2"></input>
+                    <button type="button" onClick={() => navigator.clipboard.writeText(password)}>Copy</button>
                 </div>
                 <button type="submit" className="mb-10 bg-gray-200 p-3 rounded w-20 mr-auto ml-auto">Submit</button>
                 <div className="flex justify-between pl-5 pr-5 pb-3">
