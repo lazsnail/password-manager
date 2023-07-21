@@ -12,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
   const [displayType, setDisplayType] = useState("signIn");
+  const [signedUp, setSignedUp] = useState(false);
 
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
@@ -29,6 +30,7 @@ export default function Login() {
     if (error) {
       console.log(error);
     }
+    setSignedUp(true);
     router.refresh()
   
   }
@@ -51,9 +53,11 @@ export default function Login() {
 
   return (
     <>
-      {displayType === "signIn" ? 
-      <div className="w-fit flex flex-col justify-center items-center text-center p-10 bg-white text-black rounded">
-        <h1 className="text-2xl mb-6 font-bold">Log In</h1>
+      {
+      signedUp ? <div>Please verify the email sent to <b>{email}</b></div> :
+      displayType === "signIn" ? 
+      <div className="w-80 flex flex-col justify-center items-center text-center p-10 bg-white text-black rounded">
+        <h1 className="w-80 text-2xl mb-6 font-bold">Log In</h1>
         <h2>Email</h2>
         <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} className="text-black w-52 text-center ml-auto mr-auto mb-5 border-black border-2"/>
         <h2>Password</h2>
@@ -66,11 +70,11 @@ export default function Login() {
         />
         {loginError ? <h3 className="text-red-600 mb-5 loginErrorMessage">Incorrect email or password</h3> : null }
 
-        <button onClick={handleSignIn} className="bg-black text-white p-3 rounded ml-auto mr-auto mb-5 w-20">Sign In</button>
-        <button onClick={() => setDisplayType("signUp")}>Don't have an account? Sign Up</button>
+        <button onClick={handleSignIn} className="bg-black text-white pt-3 pb-3 rounded ml-auto mr-auto mb-5 w-20">Sign In</button>
+        <button onClick={() => setDisplayType("signUp")}>Don't have an account?<br/><b>Sign Up</b></button>
       </div> : displayType === "signUp" ?
-      <div className="w-fit flex flex-col justify-center items-center text-center p-10 bg-white text-black rounded">
-        <h1 className="text-2xl mb-6 font-bold">Create New Account</h1>
+      <div className="w-80 flex flex-col justify-center items-center text-center p-10 bg-white text-black rounded">
+        <h1 className="w-80 text-2xl mb-6 font-bold">Create New Account</h1>
         <h2>Email</h2>
         <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} className="text-black w-52 text-center ml-auto mr-auto mb-5 border-black border-2"/>
         <h2>Password</h2>
@@ -82,8 +86,8 @@ export default function Login() {
           className="text-black w-52 text-center ml-auto mr-auto mb-5 border-black border-2"
         />
 
-        <button onClick={handleSignUp} className="bg-black text-white p-3 rounded ml-auto mr-auto mb-5 w-22">Sign Up</button>
-        <button onClick={() => setDisplayType("signIn")}>Already have an account? Sign In</button>
+        <button onClick={handleSignUp} className="bg-black text-white pt-3 pb-3 rounded ml-auto mr-auto mb-5 w-20">Sign Up</button>
+        <button onClick={() => setDisplayType("signIn")}>Already have an account?<br/><b>Sign In</b></button>
       </div> : null}
     </>
   )

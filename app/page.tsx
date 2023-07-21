@@ -14,8 +14,8 @@ export default async function Home() {
   }
 
   const { data, error } = await supabase.from("passwords").select().single();
-  const vault = data ? data["vault"] : "empty";
-  const id = data ? data["user_id"] : "no_id";
+  const vault = data ? data["vault"] : redirect('/error');
+  const id = data ? data["user_id"] : redirect('/error');
 
   return (
     <>
