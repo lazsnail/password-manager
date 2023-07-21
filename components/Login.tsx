@@ -71,7 +71,7 @@ export default function Login() {
         {loginError ? <h3 className="text-red-600 mb-5 loginErrorMessage">Incorrect email or password</h3> : null }
 
         <button onClick={handleSignIn} className="bg-black text-white pt-3 pb-3 rounded ml-auto mr-auto mb-5 w-20">Sign In</button>
-        <button onClick={() => setDisplayType("signUp")}>Don't have an account?<br/><b>Sign Up</b></button>
+        <button onClick={() => setDisplayType("signUp")}>Don&apos;t have an account?<br/><b>Sign Up</b></button>
       </div> : displayType === "signUp" ?
       <div className="w-80 flex flex-col justify-center items-center text-center p-10 bg-white text-black rounded">
         <h1 className="w-80 text-2xl mb-6 font-bold">Create New Account</h1>
