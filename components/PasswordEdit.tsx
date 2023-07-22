@@ -44,15 +44,13 @@ export default function PasswordEdit({
   const deletePassword = async () => {
     delete passwords[website];
 
-    console.log(passwords);
-
     // Encrypt vault
     const encrypted = CryptoJS.AES.encrypt(
       JSON.stringify(passwords),
       key
     ).toString();
 
-    await fetch(process.env.NEXT_PUBLIC_HOST_URL + '/passwords', {
+    await fetch(location.origin + '/passwords', {
       method: "put",
       body: JSON.stringify({ type: "update", vault: encrypted, id: id }),
     });
@@ -79,7 +77,7 @@ export default function PasswordEdit({
       key
     ).toString();
 
-    await fetch(process.env.NEXT_PUBLIC_HOST_URL + '/passwords', {
+    await fetch(location.origin + '/passwords', {
       method: "put",
       body: JSON.stringify({ type: "update", vault: encrypted, id: id }),
     });

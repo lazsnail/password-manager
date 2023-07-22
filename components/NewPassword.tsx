@@ -34,11 +34,8 @@ export default async function NewPassword({ vault, id, setPopup } : NewPasswordP
 
         // Encrypt vault
         const encrypted = CryptoJS.AES.encrypt(JSON.stringify(passwords), key).toString();
-        console.log(encrypted);
 
-        console.log(process.env.NEXT_PUBLIC_HOST_URL);
-
-        await fetch(process.env.NEXT_PUBLIC_HOST_URL + '/passwords', {
+        await fetch(location.origin + '/passwords', {
             method: 'put',
             body: JSON.stringify({ type: "update", vault: encrypted, id: id})
         })
