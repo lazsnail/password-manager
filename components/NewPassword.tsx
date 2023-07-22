@@ -52,15 +52,15 @@ export default async function NewPassword({ vault, id, setPopup } : NewPasswordP
                 <b className="text-3xl ml-6 mb-4 text-left">New Password</b>
                 <div className="flex flex-col mb-4">
                     <b className="w-28 ml-6 text-left">Website</b>
-                    <input name="website" className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded"/>
+                    <input name="website" className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded" required/>
                 </div>
                 <div className="flex flex-col mb-4">
                     <b className="w-28 ml-6 text-left">Username</b>
-                    <input name="username" className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded"/>
+                    <input name="username" className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded" required/>
                 </div>
                 <div className="flex flex-col mb-10">
                     <b className="w-28 ml-6 text-left">Password</b>
-                    <input name="password" type="password" className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded"/>
+                    <input name="password" type="password" className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded" required/>
                 </div>
                 <div className="flex justify-between ml-6 pr-5 pb-3">
                     <button type="submit" className="bg-violet-600 text-white p-3 rounded font-bold">Submit</button>

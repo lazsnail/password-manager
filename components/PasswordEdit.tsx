@@ -110,6 +110,7 @@ export default function PasswordEdit({
             type="text"
             defaultValue={website}
             className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded"
+            required
           ></input>
         </div>
         <div className="flex flex-col mb-4">
@@ -119,6 +120,7 @@ export default function PasswordEdit({
             type="text"
             defaultValue={username}
             className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded"
+            required
           ></input>
         </div>
         <div className="flex flex-col mb-10">
@@ -128,6 +130,7 @@ export default function PasswordEdit({
             type="password"
             defaultValue={password}
             className="bg-violet-600 dark:text-white mr-6 mb-1 ml-6 p-3 rounded"
+            required
           ></input>
           <button
             type="button"

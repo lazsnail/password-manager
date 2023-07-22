@@ -25,6 +25,8 @@ export default function PasswordListDisplay({
 
   const vaultKey = localStorage.getItem("vaultKey") ?? "";
 
+  console.log(data);
+
   if (vaultKey == "") {
     console.log("no key");
     return <>no key</>;

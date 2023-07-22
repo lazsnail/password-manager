@@ -25,7 +25,6 @@ export default async function Home() {
       <div className="w-[600px] min-w-[300px] p-3">
           <h1 className="text-3xl mb-2 font-bold">Passwords</h1>
           <Header vault={vault} id={id}/>
-          <h2 className="p-2">Passwords</h2>
           <PasswordListDisplay data={vault} id={id}/>
       </div>
     </div>
