@@ -21,10 +21,13 @@ export default async function Home() {
   const id = data ? data["user_id"] : "";
 
   return (
-    <>
-        <h1 className="text-2xl">Hello {session.user.email}</h1>
-        <Header vault={vault} id={id}/>
-        <PasswordListDisplay data={vault} id={id}/>
-    </>
+    <div className="flex justify-center">
+      <div className="w-[600px] min-w-[300px] p-3">
+          <h1 className="text-3xl mb-2 font-bold">Passwords</h1>
+          <Header vault={vault} id={id}/>
+          <h2 className="p-2">Passwords</h2>
+          <PasswordListDisplay data={vault} id={id}/>
+      </div>
+    </div>
   )
 }

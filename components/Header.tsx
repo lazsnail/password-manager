@@ -15,7 +15,7 @@ export default function Header({ vault, id } : HeaderProps) {
     return (
         <header className="flex justify-between mt-2 mb-2">
             {popup ? <NewPassword vault={vault} id={id} setPopup={setPopup}/> : null}
-            <button onClick={() => setPopup(true)} className="bg-white text-black p-4 rounded">New Password</button>
+            <button onClick={() => setPopup(true)} className="bg-violet-600 text-white font-bold p-4 rounded">New Password</button>
             <SignOut />
         </header>
     )

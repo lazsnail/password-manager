@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import CryptoJS from "crypto-js";
+import { BiCopy } from "react-icons/bi";
+import { IconContext } from "react-icons";
 
 type PasswordEditProps = {
   info: {
@@ -94,16 +96,22 @@ export default function PasswordEdit({
       ></div>
       <form
         action={updatePassword}
-        className="fixed bg-white w-1/3 min-w-[375px] text-black text-center rounded flex flex-col"
+        className="fixed w-1/3 min-w-[375px] h-screen text-white bg-black rounded flex flex-col"
       >
-        <b className="text-3xl pt-10 pb-10 mb-10 bg-gray-100">Edit Password</b>
+        <button
+          onClick={() => setEdit(false)}
+          className="bg-transparent text-violet-400 rounded text-left ml-6 mb-4 mt-4"
+        >
+          Close
+        </button>
+        <b className="text-3xl ml-6 mb-4 text-left">Edit Password</b>
         <div className="flex flex-col mb-4">
           <b className="w-28 ml-6 text-left">Website</b>
           <input
             name="website"
             type="text"
             defaultValue={website}
-            className="text-black mr-6 ml-6 pl-2 rounded border-black border-2"
+            className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded"
           ></input>
         </div>
         <div className="flex flex-col mb-4">
@@ -112,7 +120,7 @@ export default function PasswordEdit({
             name="username"
             type="text"
             defaultValue={username}
-            className="text-black mr-6 ml-6 pl-2 rounded border-black border-2"
+            className="bg-violet-600 dark:text-white mr-6 ml-6 p-3 rounded"
           ></input>
         </div>
         <div className="flex flex-col mb-10">
@@ -121,31 +129,28 @@ export default function PasswordEdit({
             name="password"
             type="password"
             defaultValue={password}
-            className="text-black mr-6 ml-6 pl-2 rounded border-black border-2"
+            className="bg-violet-600 dark:text-white mr-6 mb-1 ml-6 p-3 rounded"
           ></input>
           <button
             type="button"
             onClick={() => navigator.clipboard.writeText(password)}
-            className="font-bold mt-1 ml-6 border-black border-2 rounded w-12"
+            className="flex items-center font-bold mt-1 ml-6 border-black border-2 rounded text-left"
           >
-            Copy
+            <IconContext.Provider value={{ color: "white", className: "global-class-name" }}>
+                <BiCopy />
+            </IconContext.Provider>
+            <b className="ml-1">Copy Password</b>
           </button>
         </div>
-        <button
-          type="submit"
-          className="mb-10 bg-gray-200 p-3 rounded w-20 mr-auto ml-auto"
-        >
-          Submit
-        </button>
         <div className="flex justify-between pl-5 pr-5 pb-3">
-          <button onClick={deletePassword} className="bg-gray-200 p-3 rounded">
-            Delete
-          </button>
           <button
-            onClick={() => setEdit(false)}
-            className="bg-gray-200 p-3 rounded"
+            type="submit"
+            className="bg-violet-600 text-white p-3 rounded font-bold"
           >
-            Close
+            Submit
+          </button>
+          <button onClick={deletePassword} className="bg-red-600 text-white p-2 rounded font-bold">
+            Delete
           </button>
         </div>
       </form>
