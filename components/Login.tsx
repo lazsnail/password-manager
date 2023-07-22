@@ -65,7 +65,7 @@ export default function Login() {
   return (
     <>
       {signedUp ? (
-        <div>
+        <div className="text-center">
           Please verify the email sent to <b>{email}</b>
         </div>
       ) : displayType === "signIn" ? (
