@@ -52,7 +52,7 @@ export default function PasswordEdit({
       key
     ).toString();
 
-    await fetch("http://localhost:3000/passwords", {
+    await fetch("https://master.d3rgy52lgn01np.amplifyapp.com/passwords", {
       method: "put",
       body: JSON.stringify({ type: "update", vault: encrypted, id: id }),
     });
