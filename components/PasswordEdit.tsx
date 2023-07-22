@@ -52,7 +52,7 @@ export default function PasswordEdit({
       key
     ).toString();
 
-    await fetch("https://master.d3rgy52lgn01np.amplifyapp.com/passwords", {
+    await fetch(process.env.NEXT_PUBLIC_HOST_URL + '/passwords', {
       method: "put",
       body: JSON.stringify({ type: "update", vault: encrypted, id: id }),
     });
@@ -79,7 +79,7 @@ export default function PasswordEdit({
       key
     ).toString();
 
-    await fetch("https://master.d3rgy52lgn01np.amplifyapp.com/passwords", {
+    await fetch(process.env.NEXT_PUBLIC_HOST_URL + '/passwords', {
       method: "put",
       body: JSON.stringify({ type: "update", vault: encrypted, id: id }),
     });
