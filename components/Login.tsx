@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import type { Database } from "../types/supabase";
 import { pbkdf2Sync } from "crypto";
+import { handleClientScriptLoad } from "next/script";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,6 +19,8 @@ export default function Login() {
   const supabase = createClientComponentClient<Database>();
 
   const handleSignUp = async () => {
+    console.log(location.origin);
+
     var derived_password = pbkdf2Sync(
       password,
       email,
@@ -69,7 +72,7 @@ export default function Login() {
           Please verify the email sent to <b>{email}</b>
         </div>
       ) : displayType === "signIn" ? (
-        <div className="w-80 flex flex-col items-center p-10 bg-violet-600 text-white rounded">
+        <form action={handleSignIn} className="w-80 flex flex-col items-center p-10 bg-violet-600 text-white rounded">
           <h1 className="w-80 text-center text-2xl mb-6 font-bold underline">Log In</h1>
           <h2 className="w-80 ml-28 text-left">Email</h2>
           <input
@@ -77,6 +80,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             className="text-black w-52 text-left ml-auto mr-auto mb-5 p-2 border-black border-2"
+            required
           />
           <h2 className="w-80 ml-28 text-left">Password</h2>
           <input
@@ -85,6 +89,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             className="text-black w-52 text-left ml-auto mr-auto mb-5 p-2 border-black border-2"
+            required
           />
           {loginError ? (
             <h3 className="text-red-600 mb-5 loginErrorMessage">
@@ -93,7 +98,6 @@ export default function Login() {
           ) : null}
 
           <button
-            onClick={handleSignIn}
             type="submit"
             className="bg-black text-white pt-3 pb-3 rounded ml-auto mr-auto mb-5 w-20"
           >
@@ -104,9 +108,9 @@ export default function Login() {
             <br />
             <b>Sign Up</b>
           </button>
-        </div>
+        </form>
       ) : displayType === "signUp" ? (
-        <div className="w-80 flex flex-col justify-center items-center text-center p-10 bg-violet-600 text-white rounded">
+        <form action={handleSignUp} className="w-80 flex flex-col justify-center items-center text-center p-10 bg-violet-600 text-white rounded">
           <h1 className="w-80 text-2xl mb-6 font-bold underline">Create New Account</h1>
           <h2 className="w-80 ml-28 text-left">Email</h2>
           <input
@@ -114,6 +118,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             className="text-black w-52 text-left ml-auto mr-auto mb-5 p-2 border-black border-2"
+            required
           />
           <h2 className="w-80 ml-28 text-left">Password</h2>
           <input
@@ -122,10 +127,10 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             className="text-black w-52 text-left ml-auto mr-auto mb-5 p-2 border-black border-2"
+            required
           />
 
           <button
-            onClick={handleSignUp}
             type="submit"
             className="bg-black text-white pt-3 pb-3 rounded ml-auto mr-auto mb-5 w-20"
           >
@@ -136,7 +141,7 @@ export default function Login() {
             <br />
             <b>Sign In</b>
           </button>
-        </div>
+        </form>
       ) : null}
     </>
   );
