@@ -53,7 +53,7 @@ export default function PasswordListDisplay({
     const values = new Map(Object.entries(value));
     const username = values.get("username");
     const password = values.get("password");
-    if (key.includes(search) || username.includes(search)) {
+    if (key.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || username.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
       elements.push(
         <PasswordDisplay
           key={key}
