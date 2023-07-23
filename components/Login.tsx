@@ -23,14 +23,14 @@ export default function Login() {
 
     var derived_password = pbkdf2Sync(
       password,
-      email,
+      email.toLocaleLowerCase(),
       5000,
       32,
       "sha512"
     ).toString();
 
     const { error } = await supabase.auth.signUp({
-      email,
+      email: email.toLocaleLowerCase(),
       password: derived_password,
       options: {
         emailRedirectTo: location.origin + '/',
@@ -46,14 +46,14 @@ export default function Login() {
   const handleSignIn = async () => {
     var derived_password = pbkdf2Sync(
       password,
-      email,
+      email.toLocaleLowerCase(),
       5000,
       32,
       "sha512"
     ).toString();
 
     const { data, error } = await supabase.auth.signInWithPassword({
-      email,
+      email: email.toLocaleLowerCase(),
       password: derived_password,
     });
     if (error !== null) {
