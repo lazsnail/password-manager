@@ -27,7 +27,7 @@ export default function PasswordEdit({
   const username = info["username"];
   const password = info["password"];
 
-  const key = localStorage.getItem("vaultKey") ?? "";
+  const key = localStorage?.getItem("vaultKey") ?? "";
   if (key == "") {
     console.log("need vault key");
   }

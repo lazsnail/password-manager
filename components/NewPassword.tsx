@@ -11,7 +11,7 @@ type NewPasswordProps = {
 }
 
 export default async function NewPassword({ vault, id, setPopup } : NewPasswordProps) {
-    const key = localStorage.getItem('vaultKey') ?? "";
+    const key = localStorage?.getItem('vaultKey') ?? "";
     if (key == "") {
         console.log("need vault key");
     }
