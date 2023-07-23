@@ -26,7 +26,7 @@ export default function PasswordDisplay({website, username, password, setEdit, s
     }
 
     return (
-        <div onClick={edit} className="w-full bg-violet-600 text-white rounded mb-4 pt-2 pb-2 pl-3 pr-3 flex justify-between items-center hover:bg-slate-100 hover:text-violet-600 cursor-pointer">
+        <div onClick={edit} className="w-full bg-violet-600 text-white rounded mb-4 pt-2 pb-2 pl-3 pr-3 flex justify-between items-center hover:bg-slate-100 hover:text-violet-600 cursor-pointer transition-all">
             <div className="text-left">
                 <b className="text-lg">{website}</b>
                 <p>{username}</p>

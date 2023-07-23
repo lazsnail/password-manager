@@ -30,7 +30,7 @@ export default function PasswordListDisplay({
   }
   // Check if user hasn't submitted a password yet
   else if (data == "{}") {
-    return <h1 className="text-left text-lg mt-12">Add your first password</h1>;
+    return <h1 className="text-left text-lg mt-5">Add your first password</h1>;
   }
   // Decrypt vault and return list of passwords
   const decrypted = CryptoJS.AES.decrypt(data, vaultKey).toString(
@@ -38,9 +38,11 @@ export default function PasswordListDisplay({
   );
 
   const map = new Map<string, JSON>(Object.entries(JSON.parse(decrypted)));
-
+  
+  var length = 0;
   var elements: any[] = [];
   map.forEach((value, key) => {
+    length += 1;
     const values = new Map(Object.entries(value));
     const username = values.get("username");
     const password = values.get("password");
@@ -55,6 +57,11 @@ export default function PasswordListDisplay({
       />
     );
   });
+
+  // Check if user has no passwords currently stored
+  if (length === 0) {
+    return <h1 className="text-left text-lg mt-5">Add your first password</h1>;
+  }
 
   return (
     <div>
