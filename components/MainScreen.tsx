@@ -19,8 +19,6 @@ export default function MainScreen({vault, id} : MainScreenProps) {
         password: "",
       });
 
-    console.log("load");
-
     return (
         display === "main" ? 
         <div className="w-screen max-w-[600px] p-3">

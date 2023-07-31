@@ -82,7 +82,7 @@ export default function NewPassword({ vault, id }: NewPasswordProps) {
         <b className="w-28 text-left">Website</b>
         <input
           name="website"
-          className="bg-violet-600 dark:text-white mr-6 p-3 rounded"
+          className="bg-violet-600 dark:text-white w-full mr-6 p-3 rounded"
           required
         />
       </div>
@@ -90,7 +90,7 @@ export default function NewPassword({ vault, id }: NewPasswordProps) {
         <b className="w-28 text-left">Username</b>
         <input
           name="username"
-          className="bg-violet-600 dark:text-white mr-6 p-3 rounded"
+          className="bg-violet-600 dark:text-white w-full mr-6 p-3 rounded"
           required
         />
       </div>
@@ -103,7 +103,7 @@ export default function NewPassword({ vault, id }: NewPasswordProps) {
             setPasswordInput(e.currentTarget.value);
           }}
           type="password"
-          className="bg-violet-600 dark:text-white mr-6 p-3 rounded"
+          className="bg-violet-600 dark:text-white w-full mr-6 p-3 rounded"
           required
         />
       </div>

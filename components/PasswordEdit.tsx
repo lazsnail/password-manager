@@ -103,7 +103,7 @@ export default function PasswordEdit({
           name="website"
           type="text"
           defaultValue={website}
-          className="bg-violet-600 dark:text-white mr-6 p-3 rounded"
+          className="bg-violet-600 dark:text-white w-full mr-6 p-3 rounded"
           required
         ></input>
       </div>
@@ -113,7 +113,7 @@ export default function PasswordEdit({
           name="username"
           type="text"
           defaultValue={username}
-          className="bg-violet-600 dark:text-white mr-6 p-3 rounded"
+          className="bg-violet-600 dark:text-white w-full mr-6 p-3 rounded"
           required
         ></input>
       </div>
@@ -123,7 +123,7 @@ export default function PasswordEdit({
           name="password"
           type="password"
           defaultValue={password}
-          className="bg-violet-600 dark:text-white mr-6 mb-2 p-3 rounded"
+          className="bg-violet-600 dark:text-white w-full mr-6 mb-2 p-3 rounded"
           required
         ></input>
         <button

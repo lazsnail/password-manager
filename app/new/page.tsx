@@ -14,14 +14,12 @@ export default async function Home() {
   } = await supabase.auth.getSession();
 
   if (!session) {
-    redirect('/unauthenticated')
+    redirect('/login')
   }
 
   const { data, error } = await supabase.from("passwords").select().single();
   const vault = data ? data["vault"] : "{}";
   const id = data ? data["user_id"] : "";
-
-  console.log("yep");
 
   return (
     <div className="flex justify-center">

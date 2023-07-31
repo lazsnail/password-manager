@@ -28,16 +28,24 @@ body {
 
 @keyframes loginError {
   0% {
-    opacity: 0.5;
+    text-decoration-color: rgba(255, 0, 0, 0);
   }
   50% {
-    opacity: 1;
+    text-decoration-color: rgba(255, 0, 0, 1);
   }
   100% {
-    opacity: 0.5;
+    text-decoration-color: rgba(255, 0, 0, 0);
   }
 }
 
 .loginErrorMessage {
-  animation: loginError 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  animation: loginError 1.5s ease-in-out infinite;
+}
+
+.info-icon:hover .hidden-text{
+  opacity: 100;
+  display: block;
+  visibility: visible;
 }

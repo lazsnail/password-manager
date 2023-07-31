@@ -14,7 +14,7 @@ export default async function Home() {
   const { data: {session} } = await supabase.auth.getSession();
   
   if (!session) {
-      redirect('/unauthenticated')
+      redirect('/login')
   }
 
   const { data, error } = await supabase.from("passwords").select().single();
