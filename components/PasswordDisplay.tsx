@@ -8,7 +8,7 @@ type PasswordDisplayProps = {
     website: string,
     username: string,
     password: string,
-    setEdit: Dispatch<SetStateAction<boolean>>;
+    setDisplay: Dispatch<SetStateAction<string>>;
     setInfo: Dispatch<SetStateAction<{
         website: string;
         username: string;
@@ -16,13 +16,13 @@ type PasswordDisplayProps = {
     }>>
 }
 
-export default function PasswordDisplay({website, username, password, setEdit, setInfo} : PasswordDisplayProps) {
+export default function PasswordDisplay({website, username, password, setDisplay, setInfo} : PasswordDisplayProps) {
     const router = useRouter();
 
     const edit = () => {
         //setCurrentPassword(password);
-        setEdit(true);
         setInfo({website: website, username: username, password: password});
+        setDisplay("edit");
     }
 
     return (

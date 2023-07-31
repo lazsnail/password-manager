@@ -14,14 +14,14 @@ type PasswordEditProps = {
   };
   vault: string;
   id: string;
-  setEdit: Dispatch<SetStateAction<boolean>>;
+  setDisplay: Dispatch<SetStateAction<string>>;
 };
 
 export default function PasswordEdit({
   info,
   vault,
   id,
-  setEdit,
+  setDisplay,
 }: PasswordEditProps) {
   const website = info["website"];
   const username = info["username"];
@@ -55,7 +55,7 @@ export default function PasswordEdit({
       body: JSON.stringify({ type: "update", vault: encrypted, id: id }),
     });
 
-    setEdit(false);
+    setDisplay("main");
     router.refresh();
   };
 
@@ -65,7 +65,6 @@ export default function PasswordEdit({
     const newPassword = String(formData.get("password"));
 
     if (website !== newWebsite) {
-      console.log("here");
       delete passwords[website];
     }
 
@@ -82,22 +81,17 @@ export default function PasswordEdit({
       body: JSON.stringify({ type: "update", vault: encrypted, id: id }),
     });
 
-    setEdit(false);
+    setDisplay("main");
     router.refresh();
   };
 
   return (
-    <div className="fixed w-screen h-screen top-0 left-0 bg-slate-500/[.4] flex justify-center items-center">
-      <div
-        onClick={() => setEdit(false)}
-        className="fixed left-0 w-screen h-screen"
-      ></div>
       <form
         action={updatePassword}
-        className="fixed w-1/3 min-w-[375px] h-screen text-white bg-black rounded flex flex-col"
+        className="w-screen max-w-[600px] h-screen text-white bg-black rounded flex flex-col"
       >
         <button
-          onClick={() => setEdit(false)}
+          onClick={() => setDisplay("main")}
           className="bg-transparent text-violet-400 rounded text-left ml-6 mb-4 mt-4"
         >
           Close
@@ -155,6 +149,5 @@ export default function PasswordEdit({
           </button>
         </div>
       </form>
-    </div>
   );
 }

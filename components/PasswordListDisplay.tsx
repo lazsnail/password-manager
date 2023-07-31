@@ -4,30 +4,30 @@ import PasswordDisplay from "@/components/PasswordDisplay";
 import PasswordEdit from "@/components/PasswordEdit";
 import CryptoJS from "crypto-js";
 
-import { SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type PasswordListDisplayProps = {
   data: string;
   id: string;
+  setInfo: Dispatch<SetStateAction<{
+    website: string;
+    username: string;
+    password: string;
+}>>
+  setDisplay: Dispatch<SetStateAction<string>>;
 };
 
 export default function PasswordListDisplay({
   data,
   id,
+  setInfo,
+  setDisplay
 }: PasswordListDisplayProps) {
-  var [edit, setEdit] = useState(false);
-  var [info, setInfo] = useState({
-    website: "",
-    username: "",
-    password: "",
-  });
   var [search, setSearch] = useState("");
 
   function handleSearch(event: { target: { value: SetStateAction<string>; }; }) {
     setSearch(event.target.value)
   }
-
-  console.log(search);
 
   const vaultKey = localStorage?.getItem("vaultKey") ?? "";
 
@@ -60,7 +60,7 @@ export default function PasswordListDisplay({
           website={key}
           username={username}
           password={password}
-          setEdit={setEdit}
+          setDisplay={setDisplay}
           setInfo={setInfo}
         />
       );
@@ -74,9 +74,6 @@ export default function PasswordListDisplay({
 
   return (
     <div>
-      {edit ? (
-        <PasswordEdit info={info} vault={data} id={id} setEdit={setEdit} />
-      ) : null}
       <input placeholder="Search" onChange={handleSearch} className="text-black mb-4 p-2 w-full rounded"></input>
       {elements}
     </div>

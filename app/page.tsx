@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import PasswordListDisplay from "@/components/PasswordListDisplay";
 import Header from "@/components/Header";
 import { Database } from "@/types/supabase";
+import MainScreen from "@/components/MainScreen";
 
 export default async function Home() {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -22,11 +23,7 @@ export default async function Home() {
 
   return (
     <div className="flex justify-center">
-      <div className="w-[600px] min-w-[300px] p-3">
-          <h1 className="text-3xl mb-2 font-bold">Passwords</h1>
-          <Header vault={vault} id={id}/>
-          <PasswordListDisplay data={vault} id={id}/>
-      </div>
+      <MainScreen vault={vault} id={id}/>
     </div>
   )
 }
