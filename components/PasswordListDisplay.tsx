@@ -1,14 +1,14 @@
 "use client";
 
 import PasswordDisplay from "@/components/PasswordDisplay";
-import PasswordEdit from "@/components/PasswordEdit";
 import CryptoJS from "crypto-js";
+import Link from "next/link";
 
 import { Dispatch, SetStateAction, useState } from "react";
+import NoPassword from "./NoPassword";
 
 type PasswordListDisplayProps = {
   data: string;
-  id: string;
   setInfo: Dispatch<SetStateAction<{
     website: string;
     username: string;
@@ -19,14 +19,13 @@ type PasswordListDisplayProps = {
 
 export default function PasswordListDisplay({
   data,
-  id,
   setInfo,
   setDisplay
 }: PasswordListDisplayProps) {
   var [search, setSearch] = useState("");
 
   function handleSearch(event: { target: { value: SetStateAction<string>; }; }) {
-    setSearch(event.target.value)
+    setSearch(event.target.value);
   }
 
   const vaultKey = localStorage?.getItem("vaultKey") ?? "";
@@ -37,7 +36,7 @@ export default function PasswordListDisplay({
   }
   // Check if user hasn't submitted a password yet
   else if (data == "{}") {
-    return <h1 className="text-left text-xl mt-5 font-bold">Add a new password to get started</h1>;
+    return <NoPassword />;
   }
   // Decrypt vault and return list of passwords
   const decrypted = CryptoJS.AES.decrypt(data, vaultKey).toString(
@@ -69,7 +68,7 @@ export default function PasswordListDisplay({
 
   // Check if user has no passwords currently stored
   if (length === 0) {
-    return <h1 className="text-left text-xl mt-5 font-bold">Add a new password to get started</h1>;
+    return <NoPassword />;
   }
 
   return (

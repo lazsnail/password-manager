@@ -4,8 +4,6 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 
-import PasswordListDisplay from "@/components/PasswordListDisplay";
-import Header from "@/components/Header";
 import { Database } from "@/types/supabase";
 import MainScreen from "@/components/MainScreen";
 
