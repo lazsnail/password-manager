@@ -29,7 +29,6 @@ export default function LoginForm() {
       password: derived_password,
     });
     if (error !== null) {
-      console.log(error);
       setLoginError(true);
     }
 

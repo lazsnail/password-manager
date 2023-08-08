@@ -21,7 +21,7 @@ export default function MainScreen({ vault, id }: MainScreenProps) {
   return display === "main" ? (
     <div className="w-screen max-w-[600px] p-3">
       <h1 className="text-3xl mt-2 mb-4 font-bold">Passwords</h1>
-      <Header vault={vault} id={id} setDisplay={setDisplay} />
+      <Header />
       <PasswordListDisplay
         data={vault}
         setInfo={setInfo}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import CryptoJS from "crypto-js";
 import { BiCopy } from "react-icons/bi";
@@ -27,7 +27,7 @@ export default function PasswordEdit({
   const username = info["username"];
   const password = info["password"];
 
-  const key = localStorage?.getItem("vaultKey") ?? "";
+  const key = localStorage?.getItem("vaultKey") ?? redirect("/error");
   if (key == "") {
     console.log("need vault key");
   }

@@ -3,6 +3,7 @@
 import { Database } from "@/types/supabase";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export async function PUT(request: Request) {
@@ -13,11 +14,11 @@ export async function PUT(request: Request) {
     if (type === "update") {
         const { data, error } = await supabase.from("passwords").update({ vault: vault }).match({ user_id: id });
         if (error) {
-            console.log(error);
+            redirect("/error");
         }
         return NextResponse.json(data);
     }
     else {
-        console.log("bad request %s", type);
+        redirect("/error");
     }
 }

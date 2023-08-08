@@ -4,6 +4,7 @@ import PasswordDisplay from "@/components/PasswordDisplay";
 import CryptoJS from "crypto-js";
 import { Dispatch, SetStateAction, useState } from "react";
 import NoPassword from "./NoPassword";
+import { redirect } from "next/navigation";
 
 type PasswordListDisplayProps = {
   data: string;
@@ -28,7 +29,7 @@ export default function PasswordListDisplay({
     setSearch(event.target.value);
   }
 
-  const vaultKey = localStorage?.getItem("vaultKey") ?? "";
+  const vaultKey = localStorage?.getItem("vaultKey") ?? redirect("/error");
 
   if (vaultKey == "") {
     console.log("no key");

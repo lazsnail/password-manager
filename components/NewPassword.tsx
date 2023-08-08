@@ -15,7 +15,7 @@ type NewPasswordProps = {
 export default function NewPassword({ vault, id }: NewPasswordProps) {
   var [passwordInput, setPasswordInput] = useState("");
 
-  const key = localStorage?.getItem("vaultKey") ?? "";
+  const key = localStorage?.getItem("vaultKey") ?? redirect("/error");
   if (key == "") {
     console.log("need vault key");
   }
