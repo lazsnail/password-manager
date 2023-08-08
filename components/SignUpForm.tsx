@@ -34,7 +34,7 @@ export default function SignUpForm() {
       },
     });
     if (error) {
-      console.log(error);
+      redirect("/error");
     }
     setSignedUp(true);
     router.refresh();
@@ -42,7 +42,7 @@ export default function SignUpForm() {
 
   return signedUp ? (
     <div className="text-center">
-      Please verify the email sent to <b>{email}</b>
+      Please verify the email sent to <b className="font-lg">{email}</b>
     </div>
   ) : (
     <form
@@ -64,12 +64,17 @@ export default function SignUpForm() {
       <div className="flex w-80 ml-28 text-left">
         <h2 className="mr-2">Password</h2>
         <Link
-            href="/faq"
-            className="mb-1 mt-1 w-fit text-left flex items-center"
+          href="/faq"
+          className="mb-1 mt-1 w-fit text-left flex items-center"
         >
-            <Tooltip content={"Password Manager FAQ"} rounded color="invert" className="text-center">
-                <BsFillInfoCircleFill />
-            </Tooltip>
+          <Tooltip
+            content={"Password Manager FAQ"}
+            rounded
+            color="invert"
+            className="text-center"
+          >
+            <BsFillInfoCircleFill />
+          </Tooltip>
         </Link>
       </div>
       <input

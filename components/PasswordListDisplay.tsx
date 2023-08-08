@@ -2,29 +2,29 @@
 
 import PasswordDisplay from "@/components/PasswordDisplay";
 import CryptoJS from "crypto-js";
-import Link from "next/link";
-
 import { Dispatch, SetStateAction, useState } from "react";
 import NoPassword from "./NoPassword";
 
 type PasswordListDisplayProps = {
   data: string;
-  setInfo: Dispatch<SetStateAction<{
-    website: string;
-    username: string;
-    password: string;
-}>>
+  setInfo: Dispatch<
+    SetStateAction<{
+      website: string;
+      username: string;
+      password: string;
+    }>
+  >;
   setDisplay: Dispatch<SetStateAction<string>>;
 };
 
 export default function PasswordListDisplay({
   data,
   setInfo,
-  setDisplay
+  setDisplay,
 }: PasswordListDisplayProps) {
   var [search, setSearch] = useState("");
 
-  function handleSearch(event: { target: { value: SetStateAction<string>; }; }) {
+  function handleSearch(event: { target: { value: SetStateAction<string> } }) {
     setSearch(event.target.value);
   }
 
@@ -44,7 +44,7 @@ export default function PasswordListDisplay({
   );
 
   const map = new Map<string, JSON>(Object.entries(JSON.parse(decrypted)));
-  
+
   var length = 0;
   var elements: any[] = [];
   map.forEach((value, key) => {
@@ -52,7 +52,10 @@ export default function PasswordListDisplay({
     const values = new Map(Object.entries(value));
     const username = values.get("username");
     const password = values.get("password");
-    if (key.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || username.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+    if (
+      key.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
+      username.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    ) {
       elements.push(
         <PasswordDisplay
           key={key}
@@ -73,7 +76,11 @@ export default function PasswordListDisplay({
 
   return (
     <div>
-      <input placeholder="Search" onChange={handleSearch} className="text-black mb-4 p-2 w-full rounded"></input>
+      <input
+        placeholder="Search"
+        onChange={handleSearch}
+        className="text-black mb-4 p-2 w-full rounded"
+      ></input>
       {elements}
     </div>
   );

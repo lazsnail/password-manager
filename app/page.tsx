@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -9,10 +9,12 @@ import MainScreen from "@/components/MainScreen";
 
 export default async function Home() {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const { data: {session} } = await supabase.auth.getSession();
-  
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   if (!session) {
-      redirect('/login')
+    redirect("/login");
   }
 
   const { data, error } = await supabase.from("passwords").select().single();
@@ -21,7 +23,7 @@ export default async function Home() {
 
   return (
     <div className="flex justify-center">
-      <MainScreen vault={vault} id={id}/>
+      <MainScreen vault={vault} id={id} />
     </div>
-  )
+  );
 }
