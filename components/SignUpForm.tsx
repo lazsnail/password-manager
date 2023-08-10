@@ -18,7 +18,8 @@ export default function SignUpForm() {
   const supabase = createClientComponentClient<Database>();
 
   const handleSignUp = async () => {
-    var derived_password = pbkdf2Sync(
+    // Generate vault key -> H(email | password)
+    var vault_key = pbkdf2Sync(
       password,
       email.toLocaleLowerCase(),
       5000,
@@ -26,9 +27,18 @@ export default function SignUpForm() {
       "sha512"
     ).toString();
 
+    // Generate auth -> H(vault key | password)
+    var auth = pbkdf2Sync(
+      vault_key,
+      password,
+      5000,
+      32,
+      "sha512"
+    ).toString();
+
     const { error } = await supabase.auth.signUp({
       email: email.toLocaleLowerCase(),
-      password: derived_password,
+      password: auth,
       options: {
         emailRedirectTo: location.origin + "/",
       },

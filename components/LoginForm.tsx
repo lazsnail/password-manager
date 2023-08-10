@@ -16,7 +16,8 @@ export default function LoginForm() {
   const supabase = createClientComponentClient<Database>();
 
   const handleSignIn = async () => {
-    var derived_password = pbkdf2Sync(
+    // Generate vault key -> H(email | password)
+    var vault_key = pbkdf2Sync(
       password,
       email.toLocaleLowerCase(),
       5000,
@@ -24,15 +25,24 @@ export default function LoginForm() {
       "sha512"
     ).toString();
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    // Generate auth -> H(vault key | password)
+    var auth = pbkdf2Sync(
+      vault_key,
+      password,
+      5000,
+      32,
+      "sha512"
+    ).toString();
+
+    const { error } = await supabase.auth.signInWithPassword({
       email: email.toLocaleLowerCase(),
-      password: derived_password,
+      password: auth,
     });
     if (error !== null) {
       setLoginError(true);
     }
 
-    localStorage.setItem("vaultKey", derived_password);
+    localStorage.setItem("vaultKey", vault_key);
 
     router.refresh();
   };
