@@ -34,7 +34,7 @@ export default function NewPassword({ vault, id }: NewPasswordProps) {
     var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
             'abcdefghijklmnopqrstuvwxyz0123456789@#$';
         
-    for (let i = 1; i <= 16; i++) {
+    for (let i = 1; i <= 20; i++) {
         var char = Math.floor(Math.random()
                     * str.length + 1);
             
